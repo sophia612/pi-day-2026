@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Pi Day 2026 Invitation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <nav class="top-nav">
+        <a href="pie-info.html" class="nav-button">View the Pie Lineup</a>
+    </nav>
+
+    <header class="hero-section">
+        <p>You're invited</p>
+        <h1>Pi Day 2026</h1>
+        <p>Saturday 3.14 | 6:00pm - 9:00pm</p>
+        <p>Sophia & Eli's Apartment</p>
+        <button class="rsvp-button" id="open-rsvp-btn" onclick="toggleRSVP()">Click here to RSVP by March 6</button>
+    </header>
+
+
+    <div class="container hidden" id="main-form">
+        <div class="section">
+            <h2>Please RSVP by March 6</h2>
+            <h3>You can still come if you RSVP later, this just helps me plan pies.</h3>
+
+            <div class="form-group">
+                <label for="name">Who are you?</label>
+                <input type="text" id="name" placeholder="Your name" required>
+            </div>
+
+            <div class="form-group">
+                <label>Are you coming?</label>
+                <div class="radio-group">
+                    <label class="custom-radio">
+                        <input type="radio" name="attending" value="yes">
+                        <span class="radio-tile">Yes!</span>
+                    </label>
+                    <label class="custom-radio">
+                        <input type="radio" name="attending" value="maybe">
+                        <span class="radio-tile">Still figuring it out.</span>
+                    </label>
+                    <label class="custom-radio">
+                        <input type="radio" name="attending" value="no">
+                        <span class="radio-tile">No 😭</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="name">Anything else you want me to know?</label>
+                <textarea id="notes" placeholder="Dietary restrictions? Thoughts about pi? Hopes and dreams?"
+                    rows="3"></textarea>
+            </div>
+
+            <div class="section">
+                <h2>Vote For Your Top 3 Pies!</h2>
+                <div class="form-group">
+                    <p>
+                        I'm making pies based on the number of attendees, so not all will necessarily be made! Please
+                        vote by dragging the pies into your 1st, 2nd, and 3rd choice slots. View details about the pies
+                        <a href="pie-info.html">here.</a>
+                    </p>
+                </div>
+
+                <div id="pie-pool" class="pool-zone" ondrop="drop(event)" ondragover="allowDrop(event)">
+                    <div class="pie-vote-card" id="sweet-potato-pie" draggable="true" ondragstart="drag(event)">🍠 Sweet
+                        Potato Pie</div>
+                    <div class="pie-vote-card" id="secret-green-pie" draggable="true" ondragstart="drag(event)">🟢
+                        Secret Green Pie</div>
+                    <div class="pie-vote-card" id="berry-pie-bars" draggable="true" ondragstart="drag(event)">🫐🍓 Berry
+                        Pie Bars</div>
+                    <div class="pie-vote-card" id="key-lime-pie" draggable="true" ondragstart="drag(event)">🍋‍🟩 Key
+                        Lime Pie</div>
+                    <div class="pie-vote-card" id="nutmeg-maple-cream-pie" draggable="true" ondragstart="drag(event)">🍁
+                        Nutmeg Maple Cream Pie</div>
+                    <div class="pie-vote-card" id="vegan-chocolate-pudding-pie" draggable="true"
+                        ondragstart="drag(event)">🍫 Vegan Chocolate Pudding Pie</div>
+                </div>
+
+                <div class="ranking-board">
+                    <div class="rank-slot">
+                        <span>1st Choice</span>
+                        <div id="slot-1" class="drop-zone" ondrop="drop(event)" ondragover="allowDrop(event)"
+                            ondragenter="dragEnter(event)" ondragleave="dragLeave(event)">
+                        </div>
+                    </div>
+                    <div class="rank-slot">
+                        <span>2nd Choice</span>
+                        <div id="slot-2" class="drop-zone" ondrop="drop(event)" ondragover="allowDrop(event)"
+                            ondragenter="dragEnter(event)" ondragleave="dragLeave(event)"></div>
+                    </div>
+                    <div class="rank-slot">
+                        <span>3rd Choice</span>
+                        <div id="slot-3" class="drop-zone" ondrop="drop(event)" ondragover="allowDrop(event)"
+                            ondragenter="dragEnter(event)" ondragleave="dragLeave(event)"></div>
+                    </div>
+                </div>
+            </div>
+
+            <button class="rsvp-button" onclick="submitEverything()">Submit RSVP & Votes</button>
+            <div>
+                <h3>It'll take a few seconds after you press submit! Please do not refresh until you see the
+                    confirmation page.</h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="container hidden" id="results-screen">
+        <div class="section" id="results-screen">
+            <h2>🎉 Thanks for RSVPing! 🎉</h2>
+            <p>Your vote has been cast. You can't edit your response, but you can RSVP again if you made a mistake or want to change something. 🙂</p>
+            <div class="button-container">
+                <a href="pie-info.html" class="primary-button">View Current Pie Rankings</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+
+    <footer class="site-footer">
+        <p>Built by Sophia | 2026</p>
+        <p class="disclaimer">I created this site! It started as vibecoding with Gemini,
+            but I learned so much I can't call it that exclusively. I'm psyched about it!! But things might
+            break. Text me if you run into issues.</p>
+    </footer>
+</body>
+
+</html>

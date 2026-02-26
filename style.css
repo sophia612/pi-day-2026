@@ -1,0 +1,611 @@
+/* public/style.css */
+/* This file controls colors, spacing, and layout. Play around with the values! */
+
+body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh; /* Ensures the gradient covers the whole screen */
+    background: linear-gradient(135deg, #f3cfea 0%, #f9d8cc 50%, #fbe7d1 100%); /* Creates a diagonal flow from top-left to bottom-right */
+    background-attachment: fixed; /* Keeps the background still when you scroll */
+    font-family: 'Poppins', sans-serif; /* We will add this font next! */
+    color: #4a4a4a;
+    display: flex;
+    flex-direction: column;
+}
+
+h1, h2, h3 {
+    font-weight: 700;
+    letter-spacing: -1px; /* This "tightens" the letters like in your photo */
+    color: #ffffff; /* White text looks great against these soft gradients */
+}
+
+.hero-section {
+    padding: 80px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.hero-section h1 {
+    font-size: clamp(4rem, 14vw, 12rem);  /* (Minimum size, Preferred size, Maximum size) */
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    line-height: 0.9;
+    margin: 80px 20px;
+    color: transparent; /* Makes the inside empty, giving a "hollow" effect */
+    -webkit-text-stroke: 3px #4a4a4a; /* This uses your primary gray color for the outline */
+    transform: scaleX(0.8);
+}
+
+.hero-section p {
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    color: #888;
+    margin: 5px;
+    line-height: 1.4;
+}
+
+.container {
+    max-width: 90%;
+    margin: 40px auto;
+    padding: 40px;
+    /* Semi-transparent white */
+    background: rgba(255, 255, 255, 0.4); 
+    /* The secret sauce: blurs whatever is behind the box */
+    backdrop-filter: blur(15px); 
+    -webkit-backdrop-filter: blur(15px); /* Support for Safari */
+    border-radius: 30px; /* Nice big round corners */
+    border: 1px solid rgba(255, 255, 255, 0.3); /* Subtle white border */
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
+}
+
+.section {
+    margin-bottom: 30px;
+    text-align: left;
+    padding-bottom: 20px;
+}
+
+.section h2 {
+    font-weight: 700;
+    color: #4a4a4a;
+    text-align: center;
+    transform: scaleX(0.9);
+}
+
+.section h3 {
+    font-size: 0.9rem;
+    font-weight: 500;
+    letter-spacing: normal;
+    color: #888;
+    text-align: center;
+    font-style: italic;
+}
+
+#results-screen {
+    max-width: 500px;
+}
+
+
+/* --- PIE INFO CARDS --- */
+
+.pie-page-wrapper {
+    width: 90%;          /* Uses most of the screen */
+    max-width: 1400px;   /* But prevents it from getting TOO stretched on huge monitors */
+    margin: 80px auto;   /* Centers it and gives space for your 'Back' button */
+}
+
+.pie-grid {
+    flex: 1;
+    display: grid;
+    /* This magic line makes cards automatically wrap without you doing anything! */
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    padding: 20px;
+}
+
+/* 1. The Outer Container (defines the 3D space) */
+.pie-info-card {
+    background: transparent; /* Move background to the faces */
+    height: 280px;
+    perspective: 1000px; /* Essential for 3D effect depth */
+    position: relative;
+    box-sizing: border-box;
+}
+
+/* 2. The "Flipper" (the part that actually spins) */
+.card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-style: preserve-3d; /* This is the key! */
+    box-sizing: border-box;
+}
+
+/* 3. The Flip Trigger (spin when the outer card is hovered) */
+.pie-info-card:hover .card-inner {
+    transform: rotateY(180deg);
+}
+
+/* 4. Common Styling for both Front and Back */
+.card-front, .card-back {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden; /* Hides the back of the face when it's turned away */
+    backface-visibility: hidden;
+    border-radius: 24px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    box-sizing: border-box;
+}
+
+/* 5. The Back Face (starts already rotated 180 degrees) */
+.card-back {
+    transform: rotateY(180deg);
+    background: rgba(240, 240, 240, 0.8); /* Slightly different tint for the back */
+}
+
+.card-back ul{
+    text-align: left;
+    display: inline-block;
+}
+
+.pie-info-card h3 {
+    font-size: 1.8rem;
+    margin: 15px 0;
+    color: #333;
+}
+
+.pie-emoji {
+    display: inline-block;
+    font-size: 3rem;   /* Makes them nice and big */
+    margin: 5px;
+    filter: drop-shadow(0 5px 10px rgba(0,0,0,0.2)); /* Gives them depth */
+    transition: transform 0.3s ease;
+    cursor: default;
+}
+
+.tagline {
+    color: #666;
+    font-size: 1rem;
+    letter-spacing: 1px;
+}
+
+.recipe-link {
+    font-size: 0.75rem;
+    margin-top: auto; /* Pushes the link to the very bottom of the card */
+    color: #888;
+}
+
+.recipe-link a {
+    color: #4a4a4a;
+    text-decoration: none;
+    font-weight: 600;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1); /* Subtle underline */
+    transition: all 0.2s ease;
+}
+
+.recipe-link a:hover {
+    color: #000;
+    border-bottom: 1px solid #4a4a4a;
+}
+
+
+/* Ensure the form starts hidden */
+.hidden {
+    display: none;
+}
+
+#main-form {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 40px;
+    border-radius: 30px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+    max-width: 800px;
+    margin: 40px auto;
+}
+
+/* Space out the questions */
+.form-group {
+    margin-bottom: 30px;
+    text-align: left; /* Keeps labels aligned left while form is centered */
+}
+
+/* Style the questions (the Labels) */
+.form-group label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #4a4a4a;
+    font-size: 1.08rem;
+}
+
+/* Hide the actual ugly radio dot */
+.custom-radio input {
+    display: none;
+}
+
+/* Create the "Tile" look for radio buttons */
+.radio-group {
+    display: flex;
+    gap: 15px;
+}
+
+.radio-tile {
+    display: inline-block;
+    padding: 12px 25px;
+    background: rgba(255, 255, 255, 0.3);
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+/* What happens when you hover or click a tile */
+.custom-radio input:checked + .radio-tile {
+    background: rgba(245, 245, 245, 0.5);
+    border-color: #888; /* Your theme color */
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+input[type="text"], textarea {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 12px;
+    padding: 15px;
+    color: #4a4a4a;
+    font-size: 1rem;
+    margin-bottom: 20px;
+    box-sizing: border-box; /* Keeps boxes from stretching too far */
+}
+
+
+.form-group p a {
+    color: #dda971;          /* Your theme orange */
+    text-decoration: none;    /* Removes the underline */
+    font-weight: 600;         /* Makes it slightly bolder */
+    border-bottom: 1px solid rgba(221, 169, 113, 0.3); /* A subtle "designed" underline */
+    transition: all 0.3s ease;
+}
+
+/* Hover effect for the link */
+.form-group p a:hover {
+    color: #d78a38;           /* A slightly darker orange */
+    border-bottom: 1px solid #dda971;
+}
+
+.primary-button {
+    display: block;       /* This allows the link to have margins */
+    width: fit-content;   /* This keeps the button from stretching across the whole screen */
+    margin: 50px auto;    /* The 'auto' magic that centers it horizontally */
+    background: rgba(255, 255, 255, 0.1);
+    color: #4a4a4a;
+    text-decoration: none;
+    padding: 15px 40px;
+    border-radius: 50px;
+    font-weight: bold;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.primary-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+    background-color: rgba(245, 245, 245, 0.5);
+}
+
+.rsvp-button {
+    margin-top: 30px;
+    width: 80%;
+    background: rgba(255, 255, 255, 0.1);
+    color: #4a4a4a;
+    padding: 18px 45px;
+    font-size: 1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(5px);
+    border-radius: 100px; /* This creates the 'Pill' shape */
+    
+    /* The 'Soft UI' Shadow */
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.rsvp-button:hover {
+    transform: translateY(-5px); /* Gentle lift */
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+    background-color: rgba(245, 245, 245, 0.5);
+}
+
+.rsvp-button[onclick="submitEverything()"] {
+    display: block;      /* Necessary for margin auto to work */
+    margin: 30px auto 0; /* 30px on top, Auto on left/right, 0 on bottom */
+}
+
+/* Drag and Drop Styles */
+.pool-zone {
+    display: flex;
+    flex-wrap: wrap; /* Allows chips to wrap on mobile */
+    gap: 12px;
+    min-height: 60px;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.05); /* Subtle glass effect */
+    border-radius: 15px;
+    margin-bottom: 30px;
+}
+
+.pie-vote-card {
+    padding: 12px 24px;
+    background: rgba(245, 245, 245, 0.5);
+    border: 1px solid rgba(0,0,0,0.1);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    border-radius: 50px; /* Makes them pill-shaped */
+    cursor: grab;
+    font-weight: 600;
+    transition: transform 0.2s, box-shadow 0.2s;
+    user-select: none; /* Prevents text highlighting while dragging */
+}
+
+.pie-vote-card:active {
+    cursor: grabbing;
+    transform: scale(0.95);
+}
+
+.ranking-board {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.rank-slot {
+    text-align: center;
+    width: 30%;
+}
+
+.drop-zone {
+    height: 70px; /* Slightly taller for easier dropping */
+    border-radius: 15px;
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.5);
+    transition: all 0.3s ease;
+}
+
+.drop-zone.hovered {
+    background-color: rgba(230, 126, 34, 0.1); 
+    transform: translateY(-2px); /* Subtle lift */
+}
+
+.hidden {
+    display: none;
+}
+
+
+
+.top-nav {
+    position: absolute;
+    top: 30px;      /* Distance from top */
+    right: 30px;    /* Distance from right */
+    z-index: 100;   /* Keeps it above everything else */
+}
+
+.top-nav.nav-left {
+    right: auto; /* Cancels the right alignment */
+    left: 30px;  /* Pins it to the left instead */
+}
+
+.top-nav a {
+    text-decoration: none;
+    color: #888;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    transition: color 0.3s ease;
+}
+
+.top-nav a:hover {
+    color: #4a4a4a;
+}
+
+.nav-button {
+    text-decoration: none;
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.1);
+    color: #4a4a4a;
+    padding: 12px 25px; /* Slightly smaller than the main RSVP button */
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(5px);
+    border-radius: 100px;
+    
+    /* That same soft shadow for the 'floating' look */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.nav-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+    background-color: rgba(245, 245, 245, 0.5);
+}
+
+
+@media (max-width: 600px) {
+    .top-nav {
+        position: relative; /* Puts it back in the center stack */
+        top: 20px;
+        right: 0;
+        margin-bottom: 40px;
+    }
+}
+
+
+.main-content-wrapper {
+    display: flex;
+    flex-direction: row; /* Force side-by-side */
+    justify-content: space-between; /* Push them apart */
+    align-items: flex-start;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto; /* Center the whole wrapper on the screen */
+    padding: 0 40px;
+}
+
+.leaderboard {
+    flex: 0 0 300px; /* Sidebar stays exactly 300px wide */
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 20px;
+    padding: 30px;
+    position: sticky; /* Pro move: It stays on screen while you scroll the pies! */
+    top: 100px;
+    margin-left:40px;
+}
+
+.leaderboard h3 {
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 1rem;
+    margin-bottom: 20px;
+    color: #4a4a4a;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+    padding-bottom: 10px;
+}
+
+.rank-list {
+    list-style: none;
+    padding: 0;
+}
+
+.rank-list li {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color:#333
+}
+
+.vote-count {
+    color: #888;
+    font-weight: 400;
+}
+
+.vote-note {
+    font-size: 0.7rem;
+    font-style: italic;
+    margin-top: 20px;
+    color: #999;
+}
+
+.site-footer {
+    flex-shrink: 0;
+    text-align: center;
+    padding: 20px 0;
+    margin-top: auto;
+    color: rgba(74, 74, 74, 0.6); /* Faded gray for subtleness */
+    font-size: 0.85rem;
+    
+    position: relative; /* Ensures it stays in the flow of the document */
+    width: 100%;
+    background: transparent;
+}
+
+.site-footer p {
+    margin: 5px 5px;
+}
+
+.disclaimer {
+    font-style: italic;
+    font-size: 0.75rem;
+    opacity: 0.9;
+}
+
+/* The spinning animation */
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.spinner {
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    border: 3px solid rgba(255,255,255,.3);
+    border-radius: 50%;
+    border-top-color: #fff;
+    animation: spin 1s ease-in-out infinite;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+
+.spinner-dark {
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    border: 3px solid rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+    border-top-color: #4a4a4a;
+    animation: spin 1s ease-in-out infinite;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+
+.loading-state {
+    display: flex;
+    align-items: center; /* Vertically centers the spinner with the text */
+    gap: 10px;           /* Puts a nice 10px space between spinner and text */
+    justify-content: flex-start; /* Overrides the 'space-between' to keep them together on the left */
+}
+
+/* Styling for the button while it's working */
+button:disabled {
+    background-color: #ccc !important;
+    cursor: not-allowed;
+    transform: none !important; /* Removes the hover lift */
+    box-shadow: none !important;
+}
+
+/* Mobile fix: Stack them vertically if the screen is too narrow */
+@media (max-width: 900px) {
+    .main-content-wrapper {
+        flex-direction: column-reverse; /* Puts leaderboard at the top or bottom */
+    }
+    .leaderboard {
+        flex: 1 1 auto;
+        width: 100%;
+        position: static;
+    }
+}
