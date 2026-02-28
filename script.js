@@ -15,49 +15,38 @@ function toggleRSVP() {
     form.scrollIntoView({ behavior: 'smooth' });
 }
 
-// --- DRAG AND DROP LOGIC ---
+document.addEventListener('DOMContentLoaded', () => {
+    const pool = document.getElementById('pie-pool');
+    const slots = [
+        document.getElementById('slot-1'),
+        document.getElementById('slot-2'),
+        document.getElementById('slot-3')
+    ];
 
-// 1. Tell the browser we are allowed to drop things here
-function allowDrop(ev) {
-    ev.preventDefault();
-}
+    // Listen for clicks on the entire section to be efficient
+    document.addEventListener('click', (e) => {
+        const card = e.target.closest('.pie-vote-card');
+        if (!card) return;
 
-// 2. When we grab a pie, save its ID (e.g., "apple") into memory
-function drag(ev) {
-    ev.dataTransfer.setData("text", ev.target.id);
-}
+        const parent = card.parentElement;
 
-function dragEnter(ev) {
-    if (ev.target.classList.contains('drop-zone')) {
-        ev.target.classList.add('hovered');
-    }
-}
-
-function dragLeave(ev) {
-    if (ev.target.classList.contains('drop-zone')) {
-        ev.target.classList.remove('hovered');
-    }
-}
-
-// 3. When we let go of the mouse
-function drop(ev) {
-    ev.preventDefault();
-
-    // NEW: Always remove the hovered class when a drop happens
-    if (ev.target.classList.contains('drop-zone')) {
-        ev.target.classList.remove('hovered');
-    }
-
-    const pieId = ev.dataTransfer.getData("text");
-    const draggedPie = document.getElementById(pieId);
-
-    // Safety check: Only drop if the zone is empty, or if we are dragging it back to the main pool
-    if (ev.target.classList.contains('drop-zone') && ev.target.children.length === 0) {
-        ev.target.appendChild(draggedPie);
-    } else if (ev.target.classList.contains('pool-zone')) {
-        ev.target.appendChild(draggedPie);
-    }
-}
+        // IF THE PIE IS IN THE POOL: Move it to the first empty slot
+        if (parent.id === 'pie-pool') {
+            const nextSlot = slots.find(slot => slot.children.length === 0);
+            if (nextSlot) {
+                nextSlot.appendChild(card);
+                card.classList.add('is-ranked'); // Optional: for styling
+            } else {
+                alert("You've already picked your top 3! Remove a pie from your rankings to add another.");
+            }
+        } 
+        // IF THE PIE IS IN A SLOT: Move it back to the pool
+        else if (parent.classList.contains('drop-zone')) {
+            pool.appendChild(card);
+            card.classList.remove('is-ranked');
+        }
+    });
+});
 
 // --- FORM SUBMISSION LOGIC ---
 const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx4Vhe8ivIj4iXN1_1i6WMidYWiowuRyUsjadLowtl1wsoMciKfjdyLl1SvIT3ENHq2/exec';

@@ -1,6 +1,10 @@
 /* public/style.css */
 /* This file controls colors, spacing, and layout. Play around with the values! */
 
+* {
+    box-sizing: border-box;
+}
+
 body {
     margin: 0;
     padding: 0;
@@ -101,8 +105,8 @@ h1, h2, h3 {
 
 .pie-grid {
     flex: 1;
-    display: grid;
-    /* This magic line makes cards automatically wrap without you doing anything! */
+    justify-content: center;
+    display: grid;  /* This magic line makes cards automatically wrap without you doing anything! */
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 30px;
     padding: 20px;
@@ -115,6 +119,8 @@ h1, h2, h3 {
     perspective: 1000px; /* Essential for 3D effect depth */
     position: relative;
     box-sizing: border-box;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
 }
 
 /* 2. The "Flipper" (the part that actually spins) */
@@ -365,42 +371,61 @@ input[type="text"], textarea {
     border: 1px solid rgba(0,0,0,0.1);
     box-shadow: 0 4px 6px rgba(0,0,0,0.05);
     border-radius: 50px; /* Makes them pill-shaped */
-    cursor: grab;
+    cursor: pointer;
     font-weight: 600;
-    transition: transform 0.2s, box-shadow 0.2s;
+    transition: transform 0.1s ease, box-shadow 0.1s ease;
     user-select: none; /* Prevents text highlighting while dragging */
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .pie-vote-card:active {
-    cursor: grabbing;
     transform: scale(0.95);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Squishing the shadow */
 }
 
 .ranking-board {
     display: flex;
-    justify-content: space-between;
-    margin-top: 20px;
+    flex-direction: column; /* This is the "magic" line that stacks them */
+    gap: 15px; /* Adds space between 1st, 2nd, and 3rd */
+    max-width: 400px; /* Keeps the slots from getting too wide on desktop */
+    margin: 0 auto; /* Centers the whole board */
 }
 
 .rank-slot {
-    text-align: center;
-    width: 30%;
+    display: flex;
+    align-items: center; /* Aligns "1st Choice" vertically with the box */
+    gap: 15px;
+    text-align: right;
+    width: 100%;
 }
 
+.rank-slot span {
+    min-width: 85px; /* Ensures the text "1st Choice" doesn't wiggle */
+    font-weight: bold;
+    font-size: 0.9rem;
+    color: #555;
+}
+
+
 .drop-zone {
-    height: 70px; /* Slightly taller for easier dropping */
-    border-radius: 15px;
-    margin-top: 10px;
+    flex-grow: 1;
+    height: 50px; /* Slightly taller for easier dropping */
+    border: 2px dashed rgba(0,0,0,0.1);
+    border-radius: 50px;
+    margin-top: 5px;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(255, 255, 255, 0.5);
-    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.4);
 }
 
-.drop-zone.hovered {
-    background-color: rgba(230, 126, 34, 0.1); 
-    transform: translateY(-2px); /* Subtle lift */
+.drop-zone .pie-vote-card {
+    width: 100%;
+    margin: 0;
+    text-align: center;
+    border: none; /* Removes double border when inside a slot */
+    background: white; /* Makes the ranked choice "pop" */
 }
 
 .hidden {
@@ -470,7 +495,7 @@ input[type="text"], textarea {
     width: 100%;
     max-width: 1200px;
     margin: 0 auto; /* Center the whole wrapper on the screen */
-    padding: 0 40px;
+    padding: 0 20px;
 }
 
 .leaderboard {
@@ -590,13 +615,23 @@ button:disabled {
 
 /* Mobile fix: Stack them vertically if the screen is too narrow */
 @media (max-width: 900px) {
+    .pie-page-wrapper {
+        margin: 10px auto;   /* Centers it and gives space for your 'Back' button */
+        align-items: center;
+    }
+
     .main-content-wrapper {
         flex-direction: column-reverse; /* Puts leaderboard at the top or bottom */
+        padding: 0 10px; /* Even tighter padding for small screens */
+        align-items: center;
     }
     .leaderboard {
         flex: 1 1 auto;
         width: 100%;
+        max-width: 500px; /* Keeps it from getting too wide on tablets */
         position: static;
+        margin-left: 0;   /* CRUCIAL: Remove the desktop margin on mobile */
+        margin-bottom: 40px; /* Add space between the leaderboard and pies instead */
     }
 }
 
