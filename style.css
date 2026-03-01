@@ -243,6 +243,15 @@ h1, h2, h3 {
     font-size: 1.08rem;
 }
 
+.sublabel {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 400;
+    margin-top: -5px;
+    margin-bottom: 10px;
+    color: #888;
+}
+
 /* Hide the actual ugly radio dot */
 .custom-radio input {
     display: none;
@@ -287,7 +296,7 @@ input[type="text"], textarea {
 
 
 .form-group p a {
-    color: #dda971;          /* Your theme orange */
+    color: #dda971; 
     text-decoration: none;    /* Removes the underline */
     font-weight: 600;         /* Makes it slightly bolder */
     border-bottom: 1px solid rgba(221, 169, 113, 0.3); /* A subtle "designed" underline */
@@ -296,7 +305,7 @@ input[type="text"], textarea {
 
 /* Hover effect for the link */
 .form-group p a:hover {
-    color: #d78a38;           /* A slightly darker orange */
+    color: #d78a38; 
     border-bottom: 1px solid #dda971;
 }
 
@@ -373,6 +382,7 @@ input[type="text"], textarea {
     border-radius: 50px; /* Makes them pill-shaped */
     cursor: pointer;
     font-weight: 600;
+    text-align: center;
     transition: transform 0.1s ease, box-shadow 0.1s ease;
     user-select: none; /* Prevents text highlighting while dragging */
     touch-action: manipulation;
